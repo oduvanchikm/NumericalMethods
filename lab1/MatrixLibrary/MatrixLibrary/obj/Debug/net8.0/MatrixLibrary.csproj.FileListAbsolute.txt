@@ -1,0 +1,11 @@
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/bin/Debug/net8.0/MatrixLibrary.deps.json
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/bin/Debug/net8.0/MatrixLibrary.dll
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/bin/Debug/net8.0/MatrixLibrary.pdb
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.AssemblyInfoInputs.cache
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.AssemblyInfo.cs
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.csproj.CoreCompileInputs.cache
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.dll
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/refint/MatrixLibrary.dll
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/MatrixLibrary.pdb
+/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixLibrary/MatrixLibrary/obj/Debug/net8.0/ref/MatrixLibrary.dll
