@@ -1,12 +1,11 @@
 using MatrixLibrary;
-using System.Collections.Generic;
 using System;
 
 namespace SolveRotationMethod
 {
-    class RotationMethod
+    class RotationMethodJacobi
     {
-        private static void PrintMatrix(Matrix matrix)
+        private static void PrintMatrix(MyMatrix matrix)
         {
             var data = matrix.getDataMatrix();
             for (int i = 0; i < matrix.getRowSize(); ++i)
@@ -20,160 +19,132 @@ namespace SolveRotationMethod
             }
         }
 
-        private static void PrintCurrentMatrixState(Matrix matrix)
+        private static void PrintCurrentMatrixState(MyMatrix matrix)
         {
             Console.WriteLine("Current state of matrix: ");
             PrintMatrix(matrix);
             Console.WriteLine();
         }
-
-        private static bool CheckSymmetricMatrix(Matrix matrix)
+        
+        private static bool CheckSymmetricMatrix(MyMatrix matrix)
         {
-            Matrix matrixTranspose = matrix.Transpose();
+            MyMatrix matrixTranspose = matrix;
             return (matrix == matrixTranspose);
         }
 
-        private static double FindMaxNotDiagonalElements(Matrix matrix, ref int row, ref int col, ref double sum)
+        private static MyMatrix IdentityMatrix(int n, int m)
         {
-            double maxValue = 0;
-            var n = matrix.getRowSize();
-            var dataMatrix = matrix.getDataMatrix();
-            sum = 0;
-        
-            for (var i = 0; i < n; ++i)
+            MyMatrix matrix = new MyMatrix(n, m);
+            for (int i = 0; i < n; i++)
             {
-                for (var j = i + 1; j < n; ++j)
+                matrix.getDataMatrix()[i][i] = 1;
+            }
+
+            return matrix;
+        }
+
+        private static MyMatrix SetMatrixDataForJacobiMethod(int p, int q, double sin, double cos, int n)
+        {
+            MyMatrix uMatrix = IdentityMatrix(n, n);
+            uMatrix.getDataMatrix()[p][p] = cos;
+            uMatrix.getDataMatrix()[q][q] = cos;
+            uMatrix.getDataMatrix()[p][q] = -sin;
+            uMatrix.getDataMatrix()[q][p] = sin;
+            return uMatrix;
+        }
+        
+        private static (int, int, double) FindMaxOffDiagonalElement(MyMatrix matrix)
+        {
+            int n = matrix.getRowSize();
+            int p = 0, q = 1;
+            double maxNotDiagonalElement = Math.Abs(matrix.getDataMatrix()[p][q]);
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
                 {
-                    sum += (dataMatrix[i][j] * dataMatrix[i][j]);
-                    
-                    if (Math.Abs(dataMatrix[i][j]) > maxValue)
+                    double currentElement = Math.Abs(matrix.getDataMatrix()[i][j]);
+                    if (currentElement > maxNotDiagonalElement)
                     {
-                        maxValue = Math.Abs(dataMatrix[i][j]);
-                        row = i;
-                        col = j;
+                        maxNotDiagonalElement = currentElement;
+                        p = i;
+                        q = j;
                     }
                 }
             }
-        
-            return maxValue;
+
+            return (p, q, maxNotDiagonalElement);
         }
-        
-        private static Matrix MakeIdentity(Matrix matrix)
+
+        private static void JacobiEigenvalueAlgorithm(MyMatrix matrix, double eps)
         {
-            int row = matrix.getRowSize();
-            int column = matrix.getColomnSize();
-        
-            if (row != column)
+            int n = matrix.getRowSize();
+            MyMatrix eigenvectorsMatrix = IdentityMatrix(n, n);
+
+            bool isDoneProgram = false;
+            
+            while (!isDoneProgram)
             {
-                throw new InvalidOperationException("Matrix must be square");
-            }
-        
-            Matrix newMatrix = new Matrix(row, column);
-            var dataMatrix = newMatrix.getDataMatrix();
-        
-            for (int i = 0; i < row; ++i)
-            {
-                dataMatrix[i][i] = 1;
-            }
-        
-            return newMatrix;
-        }
-        
-        private static Matrix SetMatrixDataForJacobiMethod(Matrix matrix, double sin, double cos, int p, int q)
-        {
-            Matrix newMatrix = MakeIdentity(matrix);
-            newMatrix.setDataMatrix(p, p, cos);
-            newMatrix.setDataMatrix(p, q, -sin);
-            newMatrix.setDataMatrix(q, p, sin);
-            newMatrix.setDataMatrix(q, q, cos);
-            return newMatrix;
-        }
-
-        private static void JacobiEigenvalueMethod(Matrix matrix, out List<double> eigenvalues,
-            out List<List<double>> eigenvectors, double epsilon, out int countIterations)
-        { 
-            var n = matrix.getRowSize();
-            eigenvalues = new List<double>();
-            eigenvectors = new List<List<double>>();
-
-            var dataMatrix = matrix.getDataMatrix();
-            int p = 0;
-            int q = 0;
-            double sum = 0;
-
-            Matrix eigenvectorMatrix = MakeIdentity(matrix);
-            double maxNotDiagonalElement = FindMaxNotDiagonalElements(matrix, ref p, ref q, ref sum);
-            countIterations = 0;
-
-            while (double.Sqrt(sum) > epsilon)
-            {
-                double phi = (dataMatrix[p][p] == dataMatrix[q][q])
-                    ? Math.PI / 4
-                    : 0.5 * Math.Atan(2 * dataMatrix[p][q]) / (dataMatrix[p][p] - dataMatrix[q][q]);
-                Matrix u = SetMatrixDataForJacobiMethod(matrix, Math.Sin(phi), Math.Cos(phi), p, q);
-                Matrix middleM = u.Transpose() * matrix;
-                matrix = middleM * u;
-                eigenvectorMatrix = eigenvectorMatrix * u;
-                maxNotDiagonalElement = FindMaxNotDiagonalElements(matrix, ref p, ref q, ref sum);
-                countIterations++;
-            }
-
-            for (int i = 0; i < n; ++i)
-            {
-                eigenvalues.Add(matrix.getDataMatrix()[i][i]);
-            }
-
-            var eigenvectorData = eigenvectorMatrix.getDataMatrix();
-
-
-            for (int i = 0; i < n; ++i)
-            {
-                List<double> eigenvector = new List<double>();
-
-                for (int j = 0; j < n; ++j)
+                var (p, q, maxNotDiagonalElement) = FindMaxOffDiagonalElement(matrix);
+                
+                if (maxNotDiagonalElement < eps)
                 {
-                    eigenvector.Add(eigenvectorData[j][i]);
+                    isDoneProgram = true;
                 }
-
-                eigenvectors.Add(eigenvector);
+                else
+                {
+                    double phi = 0.5 * Math.Atan(2 * matrix.getDataMatrix()[p][q] / (matrix.getDataMatrix()[p][p] - matrix.getDataMatrix()[q][q]));
+                    MyMatrix uMatrix = SetMatrixDataForJacobiMethod(p, q, Math.Sin(phi), Math.Cos(phi), n);
+                    matrix = uMatrix.Transpose() * matrix * uMatrix;
+                    eigenvectorsMatrix *= uMatrix;
+                }
             }
 
-            // Console.WriteLine("Matrix U final");
-            // PrintCurrentMatrixState(eigenvectorMatrix);
-        }
+            Console.WriteLine("Eigenvalue Result:");
+            for (int i = 0; i < matrix.getRowSize(); i++)
+            {
+                Console.WriteLine(matrix.getDataMatrix()[i][i]);
+            }
 
+            Console.WriteLine("Eigenvectors Result:");
+            for (int i = 0; i < eigenvectorsMatrix.getRowSize(); i++)
+            {
+                Console.WriteLine("Vector:");
+                for (int j = 0; j < eigenvectorsMatrix.getRowSize(); j++)
+                {
+                    Console.WriteLine((eigenvectorsMatrix.getDataMatrix()[j][i]));
+                }
+            }
+
+            for (int i = 0; i < eigenvectorsMatrix.getRowSize(); i++)
+            {
+                for (int j = i + 1; j < eigenvectorsMatrix.getRowSize(); j++)
+                {
+                    double dotProduct = 0;
+
+                    for (int k = 0; k < eigenvectorsMatrix.getRowSize(); k++)
+                    {
+                        dotProduct += eigenvectorsMatrix.getDataMatrix()[i][k] * eigenvectorsMatrix.getDataMatrix()[j][k];
+                    }
+
+                    Console.WriteLine($"Dot product: {dotProduct}");
+                }
+            }
+        }
+        
         public static void MainFunction()
         {
             const string filename1 = "/Users/oduvanchik/NumericMethodsLabs/lab1/MatrixFiles/FourthMatrix.txt";
-            Matrix matrix4 = new Matrix();
-            matrix4.ReadMatrixFromFile(filename1);
+            MyMatrix matrix = new MyMatrix();
+            matrix.ReadMatrixFromFile(filename1);
 
-            if (!CheckSymmetricMatrix(matrix4))
+            if (!CheckSymmetricMatrix(matrix))
             {
                 throw new Exception("The matrix is not symmetric");
             }
 
-            double epsilon = 0.3;
-            JacobiEigenvalueMethod(matrix4, out List<double> eigenvalues, out List<List<double>> eigenvectors,
-                epsilon, out int countIterations);
-
-            Console.WriteLine($"Count of iterations: {countIterations}");
-
-            for (int i = 0; i < eigenvalues.Count; ++i)
-            {
-                Console.Write("Eigenvalue: " + eigenvalues[i] + "; Eigenvector: [");
-
-                for (int j = 0; j < eigenvectors[i].Count; ++j)
-                {
-                    Console.Write(eigenvectors[i][j]);
-                    if (j < eigenvectors[i].Count - 1)
-                    {
-                        Console.Write(", ");
-                    }
-                }
-
-                Console.WriteLine("]");
-            }
+            double eps = 0.3;
+            JacobiEigenvalueAlgorithm(matrix, eps);
         }
     }
 }
