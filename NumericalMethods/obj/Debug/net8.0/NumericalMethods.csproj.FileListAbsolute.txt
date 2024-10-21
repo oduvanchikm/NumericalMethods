@@ -1,0 +1,17 @@
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/NumericalMethods
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/NumericalMethods.deps.json
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/NumericalMethods.runtimeconfig.json
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/NumericalMethods.dll
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/NumericalMethods.pdb
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.AssemblyInfoInputs.cache
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.AssemblyInfo.cs
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.csproj.CoreCompileInputs.cache
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.dll
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/refint/NumericalMethods.dll
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.pdb
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.genruntimeconfig.cache
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/ref/NumericalMethods.dll
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/NumericalMethods.csproj.AssemblyReference.cache
+/Users/oduvanchik/NumericalMethods/bin/Debug/net8.0/MathNet.Numerics.dll
+/Users/oduvanchik/NumericalMethods/obj/Debug/net8.0/Numerica.A5A555C6.Up2Date
