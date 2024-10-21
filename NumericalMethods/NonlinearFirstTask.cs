@@ -3,30 +3,15 @@ using System.Globalization;
 
 public class NonlinearFirstTask
 {
-    private static double Function(double x)
-    {
-        return Math.Log(x + 1) - 2 * x * x + 1;
-    }
-
-    private static double DerivativeOfFunction(double x)
-    {
-        return 1.0 / (x + 1) - 4 * x;
-    }
-
-    private static double SecondDerivativeOfFunction(double x)
-    {
-        return -1 / (x + 1) * (x + 1) - 4;
-    }
-
-    private static double PhiFunction(double x)
-    {
-        return Math.Sqrt((Math.Log(x + 1) + 1) / 2);
-    }
-
-    private static double DerivativeOfPhiFunction(double x)
-    {
-        return 1 / (2 * Math.Sqrt(2) * (x + 1) * Math.Sqrt(Math.Log(x + 1) + 1));
-    }
+    private static double Function(double x) => Math.Log(x + 1) - 2 * x * x + 1;
+    
+    private static double DerivativeOfFunction(double x) => 1.0 / (x + 1) - 4 * x;
+    
+    private static double SecondDerivativeOfFunction(double x) => -1 / (x + 1) * (x + 1) - 4;
+    
+    private static double PhiFunction(double x) => Math.Sqrt((Math.Log(x + 1) + 1) / 2);
+    
+    private static double DerivativeOfPhiFunction(double x) => 1 / (2 * Math.Sqrt(2) * (x + 1) * Math.Sqrt(Math.Log(x + 1) + 1));
 
     private static double FindPrevResult(double firstBoundary, double secondBoundary)
     {
