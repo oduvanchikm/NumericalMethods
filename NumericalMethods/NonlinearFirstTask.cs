@@ -1,16 +1,14 @@
 namespace NumericalMethods;
 using System.Globalization;
 
+// x^6  - 5x - 2
+
 public class NonlinearFirstTask
 {
     private static double Function(double x) => Math.Log(x + 1) - 2 * x * x + 1;
-    
     private static double DerivativeOfFunction(double x) => 1.0 / (x + 1) - 4 * x;
-    
     private static double SecondDerivativeOfFunction(double x) => -1 / (x + 1) * (x + 1) - 4;
-    
     private static double PhiFunction(double x) => Math.Sqrt((Math.Log(x + 1) + 1) / 2);
-    
     private static double DerivativeOfPhiFunction(double x) => 1 / (2 * Math.Sqrt(2) * (x + 1) * Math.Sqrt(Math.Log(x + 1) + 1));
 
     private static double FindPrevResult(double firstBoundary, double secondBoundary)
@@ -53,6 +51,7 @@ public class NonlinearFirstTask
     private static double DichotomyMethod(double firstBoundary, double secondBoundary, double epsilon)
     {
         CheckDiffSign(firstBoundary, secondBoundary);
+        int contIterations = 0;
 
         double middle = firstBoundary;
 
@@ -73,8 +72,11 @@ public class NonlinearFirstTask
             {
                 firstBoundary = middle;
             }
+
+            contIterations++;
         }
 
+        // Console.WriteLine($"Count of iterations: {contIterations}");
         return (firstBoundary + secondBoundary) / 2;
     }
 
@@ -82,9 +84,11 @@ public class NonlinearFirstTask
     {
         CheckDiffSign(firstBoundary, secondBoundary);
         CheckFunctions(firstBoundary, secondBoundary);
+        
 
         double previousX = FindPrevResult(firstBoundary, secondBoundary);
         double currentX = previousX - Function(previousX) / DerivativeOfFunction(previousX);
+        int contIterations = 0;
 
         while (Math.Abs(currentX - previousX) >= epsilon)
         {
@@ -98,31 +102,33 @@ public class NonlinearFirstTask
             }
 
             currentX = previousX - Function(previousX) / derivativeValue;
+            contIterations++;
         }
 
+        // Console.WriteLine($"Count of iterations: {contIterations}");
         return currentX;
     }
-
+    
     private static double SimpleIterationMethod(double firstBoundary, double secondBoundary, double epsilon)
     {
-        CheckDiffSign(firstBoundary, secondBoundary);
-
+        int contIterations = 0;
+        double q;
         double previousX = (firstBoundary + secondBoundary) / 2.0;
-        double nextX = PhiFunction(previousX);
-        double q = Math.Abs(DerivativeOfPhiFunction(nextX));
-
-        while (q / (1 - q) * Math.Abs(nextX - previousX) > epsilon)
+        double nextX = previousX;
+        
+        do
         {
             q = Math.Abs(DerivativeOfPhiFunction(nextX));
-
+            
             if (q >= 1)
             {
-                throw new ArithmeticException("q >= 1");
+                throw new ArithmeticException("The condition isn't convergence");
             }
 
             previousX = nextX;
             nextX = PhiFunction(previousX);
-        }
+            
+        } while (q / (1 - q) * Math.Abs(nextX - previousX) > epsilon);
 
         return nextX;
     }
@@ -130,6 +136,7 @@ public class NonlinearFirstTask
     private static double SecantMethod(double firstBoundary, double secondBoundary, double epsilon)
     {
         CheckDiffSign(firstBoundary, secondBoundary);
+        int contIterations = 0;
 
         double previousX = FindPrevResult(firstBoundary, secondBoundary);
         double x = previousX + epsilon;
@@ -146,8 +153,11 @@ public class NonlinearFirstTask
             {
                 break;
             }
+
+            contIterations++;
         }
 
+        // Console.WriteLine($"Count of iterations: {contIterations}");
         return nextX;
     }
 
@@ -161,25 +171,17 @@ public class NonlinearFirstTask
             "-------------------------------------Dichotomy Method---------------------------------------------");
         double root1 = DichotomyMethod(0.8, 1, epsilon);
         Console.WriteLine($"First root: {root1}");
-        double root2 = DichotomyMethod(-0.5, 0, epsilon);
-        Console.WriteLine($"Second root: {root2}");
         Console.WriteLine(
             "----------------------------------------Newton Method---------------------------------------------");
-        double root3 = NewtonMethod(0.8, 1, epsilon);
-        Console.WriteLine($"First root: {root3}");
-        double root4 = NewtonMethod(-0.99, -0.2, epsilon);
-        Console.WriteLine($"Second root: {root4}");
+        double root2 = NewtonMethod(0.8, 1, epsilon);
+        Console.WriteLine($"First root: {root2}");
         Console.WriteLine(
             "----------------------------------Simple Iteration Method-----------------------------------------");
-        double root5 = SimpleIterationMethod(0.8, 1, epsilon);
-        Console.WriteLine($"First root: {root5}");
-        double root6 = SimpleIterationMethod(-0.99, -0.2, epsilon);
-        Console.WriteLine($"Second root: {root6}");
+        double root3 = SimpleIterationMethod(0.8, 1, epsilon);
+        Console.WriteLine($"First root: {root3}");
         Console.WriteLine(
             "---------------------------------------Secant Method----------------------------------------------");
-        double root7 = SecantMethod(0.8, 1, epsilon);
-        Console.WriteLine($"First root: {root7}");
-        double root8 = SecantMethod(-0.5, 0, epsilon);
-        Console.WriteLine($"Second root: {root8}");
+        double root4 = SecantMethod(0.8, 1, epsilon);
+        Console.WriteLine($"First root: {root4}");
     }
 }
