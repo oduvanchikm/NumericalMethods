@@ -208,10 +208,16 @@ public class LagrangeAndNewtonInterpolationPolynomials
         
         CreateTableLagrange(xValues1, yValues1, 0.1);
         double result1 = LagrangePolynomial(xValues1, yValues1, 0.1);
-        Console.WriteLine($"Result in 0.1: {result1}");
-        double lnResult1 = Function(0.1);
-        Console.WriteLine($"Result ln in 0.1: {lnResult1}");
-        Console.WriteLine($"Difference between result and ln result in 0.1: {Math.Abs(lnResult1) - Math.Abs(result1)}");
+        Console.WriteLine($"Result Lagrange in 0.1: {result1}");
+        
+        double result4 = NewtonPolynomial(xValues1, yValues1, 0.1);
+        Console.WriteLine($"Result Newton in 0.1: {result4}");
+        
+        
+        
+        // double lnResult1 = Function(0.1);
+        // Console.WriteLine($"Result ln in 0.1: {lnResult1}");
+        // Console.WriteLine($"Difference between result and ln result in 0.1: {Math.Abs(lnResult1) - Math.Abs(result1)}");
         
         // Newton Polynomial
         
