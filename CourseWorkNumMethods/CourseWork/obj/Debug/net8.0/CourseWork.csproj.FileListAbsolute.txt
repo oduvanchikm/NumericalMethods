@@ -1,0 +1,14 @@
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/bin/Debug/net8.0/CourseWork
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/bin/Debug/net8.0/CourseWork.deps.json
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/bin/Debug/net8.0/CourseWork.runtimeconfig.json
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/bin/Debug/net8.0/CourseWork.dll
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/bin/Debug/net8.0/CourseWork.pdb
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.GeneratedMSBuildEditorConfig.editorconfig
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.AssemblyInfoInputs.cache
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.AssemblyInfo.cs
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.csproj.CoreCompileInputs.cache
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.dll
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/refint/CourseWork.dll
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.pdb
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/CourseWork.genruntimeconfig.cache
+/Users/oduvanchik/CourseWorkNumMethods/CourseWork/obj/Debug/net8.0/ref/CourseWork.dll
